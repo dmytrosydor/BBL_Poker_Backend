@@ -22,5 +22,9 @@ public class GameLobbyRepository {
 
         return lobby;
     }
+
+    public List<GameLobby> findAll() {
+        return new ArrayList<>(lobbies);
+    }
 }
 
