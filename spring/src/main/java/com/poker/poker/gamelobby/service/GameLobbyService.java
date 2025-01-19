@@ -4,6 +4,8 @@ import com.poker.poker.gamelobby.entity.GameLobby;        // For the entity
 import com.poker.poker.gamelobby.repository.GameLobbyRepository; // For the repository
 import com.poker.poker.gamelobby.dto.GameLobbyResponse;
 
+import com.poker.poker.notifications.dto.LobbyUpdateRequest;
+import com.poker.poker.notifications.entities.LobbyUpdate;
 import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -25,6 +27,10 @@ public class GameLobbyService {
         return repository.findAll().stream()
                 .map(lobby -> new GameLobbyResponse(lobby.getId(), lobby.getLobbyName(), lobby.getPlayerCount()))
                 .collect(Collectors.toList());
+    }
+
+    public LobbyUpdate processUpdate(LobbyUpdateRequest request){
+        return new LobbyUpdate();
     }
 }
 

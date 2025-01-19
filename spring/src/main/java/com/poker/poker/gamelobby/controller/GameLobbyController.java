@@ -24,7 +24,7 @@ public class GameLobbyController {
         return ResponseEntity.ok(createdLobby);
     }
 
-    @GetMapping
+    @GetMapping("/get_all")
     public ResponseEntity<List<GameLobbyResponse>> getAllGameLobbies() {
         List<GameLobbyResponse> lobbies = service.getAllLobbies();
         return ResponseEntity.ok(lobbies);

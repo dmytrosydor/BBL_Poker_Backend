@@ -8,7 +8,6 @@ import jakarta.persistence.Id;
 @Entity
 public class GameLobby {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String lobbyName;
     private Integer playerCount;
