@@ -16,9 +16,9 @@ public class LobbyNotificationController {
         this.gameLobbyService = gameLobbyService;
     }
 
-    @MessageMapping("/table/updates")
-    @SendTo("/topic/table/updates")
-    public LobbyUpdate handleTableUpdates(LobbyUpdateRequest request) {
+    @MessageMapping("/lobby/updates")
+    @SendTo("/topic/lobby/updates")
+    public LobbyUpdate handleLobbyUpdates(LobbyUpdateRequest request) {
         return gameLobbyService.processUpdate(request);
     }
 }

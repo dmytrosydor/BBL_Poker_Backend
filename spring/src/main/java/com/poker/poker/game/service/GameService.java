@@ -1,6 +1,8 @@
 package com.poker.poker.game.service;
 
 import com.poker.poker.game.model.*;
+import com.poker.poker.notifications.entities.GameEvent;
+import com.poker.poker.notifications.entities.LobbyUpdate;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -38,4 +40,6 @@ public class GameService {
         }
         return false;
     }
+
+    public GameEvent getLastEvent(Long lobbyId) {}
 }
