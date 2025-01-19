@@ -41,5 +41,7 @@ public class GameService {
         return false;
     }
 
-    public GameEvent getLastEvent(Long lobbyId) {}
+    public GameEvent getLastEvent(Long lobbyId) {
+        return new GameEvent();
+    }
 }

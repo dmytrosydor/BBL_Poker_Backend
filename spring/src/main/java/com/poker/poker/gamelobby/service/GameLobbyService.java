@@ -29,6 +29,8 @@ public class GameLobbyService {
                 .collect(Collectors.toList());
     }
 
-    public LobbyUpdate processUpdate(LobbyUpdateRequest request){}
+    public LobbyUpdate processUpdate(LobbyUpdateRequest request){
+        return new LobbyUpdate();
+    }
 }
 
