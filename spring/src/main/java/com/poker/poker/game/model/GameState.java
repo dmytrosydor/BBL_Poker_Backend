@@ -12,6 +12,7 @@ public class GameState {
     private Deck deck;
     private Map<UUID, List<Card>> playerHands;
     private Map<UUID, Integer> playerBets;
+    private int pot;
 
     public GameState(UUID gameId, List<Player> players, GamePhase phase, Deck deck) {
         this.gameId = gameId;
@@ -20,6 +21,7 @@ public class GameState {
         this.deck = deck;
         this.playerHands = new HashMap<>();
         this.playerBets = new HashMap<>();
+        this.pot = 0;
     }
 
     public UUID getGameId() {
@@ -61,4 +63,21 @@ public class GameState {
     public Map<UUID, Integer> getPlayerBets() {
         return playerBets;
     }
+
+    public int getPot() {
+        return pot;
+    }
+
+    public void addToPot(int amount) {
+        this.pot += amount;
+    }
+
+
+
+    private Map<UUID, PlayerAction> playerActions = new HashMap<>();
+
+    public void updatePlayerAction(UUID playerId, PlayerAction action) {
+        this.playerActions.put(playerId, action);
+    }
+
 }

@@ -4,5 +4,6 @@ public enum GamePhase {
     WAITING,
     BETTING,
     DEALING,
-    SHOWDOWN
+    SHOWDOWN,
+    DRAW
 }
