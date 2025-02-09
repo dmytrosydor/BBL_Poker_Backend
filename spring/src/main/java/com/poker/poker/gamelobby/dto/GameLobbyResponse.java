@@ -9,7 +9,7 @@ public class GameLobbyResponse {
     private Long id;
     private String lobbyName;
     private Integer playerCount;
-    private Set<String> players;
+    private List<Player> players;
 
     public GameLobbyResponse(Long id, String lobbyName, Integer playerCount, List<Player> players) {
         this.id = id;
@@ -43,11 +43,11 @@ public class GameLobbyResponse {
         this.playerCount = playerCount;
     }
 
-    public Set<String> getPlayers() {
+    public List<Player> getPlayers() {
         return players;
     }
 
-    public void setPlayers(Set<String> players) {
+    public void setPlayers(List<Player> players) {
         this.players = players;
     }
 }
