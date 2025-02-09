@@ -11,7 +11,6 @@ public class Player {
     public Player(UUID id, String nickname) {
         this.id = id;
         this.nickname = nickname;
-
     }
 
     public UUID getId() {
