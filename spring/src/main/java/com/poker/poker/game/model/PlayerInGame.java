@@ -5,8 +5,9 @@ import java.util.List;
 
 public class PlayerInGame {
     private final Player player;
-    private int balance; // Баланс гравця
-    private List<Card> hand; // Карти, які має гравець
+    private int balance;
+    private List<Card> hand;
+    private PlayerBestHand pbh;
 
     public PlayerInGame(Player player, int balance) {
         this.player = player;
@@ -33,5 +34,8 @@ public class PlayerInGame {
     public void addCards(Card card) {
         this.hand.add(card);
     }
-}
 
+    public void setBestHand(PlayerBestHand pb) {
+        this.pbh = pb;
+    }
+}
