@@ -30,7 +30,7 @@ public class GameLobbyController {
         return ResponseEntity.ok(lobbies);
     }
 
-    @PostMapping("/join/{lobbyId}")
+    /*@PostMapping("/join/{lobbyId}")
     public ResponseEntity<GameLobby> joinLobby(@PathVariable Long lobbyId, @RequestParam String playerName) {
         GameLobby updatedLobby = service.joinLobby(lobbyId, playerName);
         return ResponseEntity.ok(updatedLobby);
@@ -40,5 +40,5 @@ public class GameLobbyController {
     public ResponseEntity<GameLobby> leaveLobby(@PathVariable Long lobbyId, @RequestParam String playerName) {
         GameLobby updatedLobby = service.leaveLobby(lobbyId, playerName);
         return ResponseEntity.ok(updatedLobby);
-    }
+    }*/
 }
