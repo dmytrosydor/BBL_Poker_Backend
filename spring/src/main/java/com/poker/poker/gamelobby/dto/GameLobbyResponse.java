@@ -1,5 +1,8 @@
 package com.poker.poker.gamelobby.dto;
 
+import com.poker.poker.game.model.Player;
+
+import java.util.List;
 import java.util.Set;
 
 public class GameLobbyResponse {
@@ -8,7 +11,7 @@ public class GameLobbyResponse {
     private Integer playerCount;
     private Set<String> players;
 
-    public GameLobbyResponse(Long id, String lobbyName, Integer playerCount, Set<String> players) {
+    public GameLobbyResponse(Long id, String lobbyName, Integer playerCount, List<Player> players) {
         this.id = id;
         this.lobbyName = lobbyName;
         this.playerCount = playerCount;

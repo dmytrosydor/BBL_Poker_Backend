@@ -34,7 +34,7 @@ public class GameLobbyService {
         return new LobbyUpdate();
     }
 
-    public GameLobby joinLobby(Long lobbyId, String playerName) {
+    /*public GameLobby joinLobby(Long lobbyId, String playerName) {
         Optional<GameLobby> lobbyOpt = repository.findById(lobbyId);
         if (lobbyOpt.isPresent()) {
             GameLobby lobby = lobbyOpt.get();
@@ -52,7 +52,7 @@ public class GameLobbyService {
             return repository.save(lobby);
         }
         throw new RuntimeException("Lobby not found");
-    }
+    }*/
 }
 
 
