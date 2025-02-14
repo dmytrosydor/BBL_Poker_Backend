@@ -11,7 +11,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 @Service
 public class GameService {
-    private final Map<UUID, GameState> gameStore = new ConcurrentHashMap<>();
+    /*private final Map<UUID, GameState> gameStore = new ConcurrentHashMap<>();
 
     public GameState createGame(List<PlayerInGame> players) {
         UUID gameId = UUID.randomUUID();
@@ -110,6 +110,6 @@ public class GameService {
         }
 
         return new PlayerActionResponse(true, "Card drawn successfully", gameState);
-    }
+    }*/
 }
 

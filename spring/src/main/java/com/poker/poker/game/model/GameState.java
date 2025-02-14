@@ -1,27 +1,31 @@
 package com.poker.poker.game.model;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
+import com.poker.poker.gamelobby.entity.GameLobby;
+
+import java.util.*;
 
 public class GameState {
     private UUID gameId;
     private List<PlayerInGame> players;
     private GamePhase phase;
     private Deck deck;
-    private Map<UUID, Integer> playerBets;
     private int pot;
     private List<Card> communityCards;
+    private WinnerInfo winnerInfo;
 
-    public GameState(UUID gameId, List<PlayerInGame> players, GamePhase phase, Deck deck, List<Card> communityCards) {
-        this.gameId = gameId;
-        this.players = players;
-        this.phase = phase;
-        this.deck = deck;
-        this.playerBets = new HashMap<>();
+    public GameState(GameLobby gl) {
+        this.gameId = UUID.randomUUID();
+        this.players = new ArrayList<>();
+
+        List<Player> lobbyList = gl.getPlayers();
+
+        for (Player player : lobbyList) {
+            this.players.add(new PlayerInGame(player));
+        }
+        this.deck = new Deck();
+        this.deck.shuffle();
         this.pot = 0;
-        this.communityCards = communityCards;
+        this.communityCards = new ArrayList<>();
     }
 
     public UUID getGameId() {
@@ -56,10 +60,6 @@ public class GameState {
         this.deck = deck;
     }
 
-    public Map<UUID, Integer> getPlayerBets() {
-        return playerBets;
-    }
-
     public int getPot() {
         return pot;
     }
@@ -68,13 +68,15 @@ public class GameState {
         this.pot += amount;
     }
 
-    private Map<UUID, PlayerAction> playerActions = new HashMap<>();
-
-    public void updatePlayerAction(UUID playerId, PlayerAction action) {
-        this.playerActions.put(playerId, action);
-    }
-
     public List<Card> getCommunityCards() {
         return communityCards;
+    }
+
+    public void addCard(Card card) {
+        this.communityCards.add(card);
+    }
+
+    public void setWinnerInfo(WinnerInfo winnerInfo) {
+        this.winnerInfo = winnerInfo;
     }
 }

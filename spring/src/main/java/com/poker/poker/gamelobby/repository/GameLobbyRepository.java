@@ -14,7 +14,6 @@ public class GameLobbyRepository {
 
     public GameLobby save(GameLobby lobby) {
         if (lobby.getId() == null) {
-            lobby.setId(nextId++);
             lobbies.add(lobby);
         } else {
             for (int i = 0; i < lobbies.size(); i++) {

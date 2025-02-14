@@ -7,10 +7,12 @@ import java.util.UUID;
 public class Player {
     private UUID id;
     private String nickname;
+    private int balance;
 
-    public Player(UUID id, String nickname) {
-        this.id = id;
+    public Player(String nickname) {
+        this.id = UUID.randomUUID();
         this.nickname = nickname;
+        this.balance = 1000;
     }
 
     public UUID getId() {
@@ -27,5 +29,13 @@ public class Player {
 
     public void setNickname(String nickname) {
         this.nickname = nickname;
+    }
+
+    public int getBalance() {
+        return balance;
+    }
+
+    public void setBalance(int balance) {
+        this.balance = balance;
     }
 }

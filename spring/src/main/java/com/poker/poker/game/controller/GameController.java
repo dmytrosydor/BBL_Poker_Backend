@@ -1,4 +1,4 @@
-package com.poker.poker.game.controller;
+/*package com.poker.poker.game.controller;
 
 import com.poker.poker.game.model.*;
 import com.poker.poker.game.service.GameService;
@@ -45,4 +45,4 @@ public class GameController {
             return ResponseEntity.notFound().build();
         }
     }
-}
+}*/

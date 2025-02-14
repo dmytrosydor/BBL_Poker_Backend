@@ -13,7 +13,7 @@ import java.util.Optional;
 
 @Service
 public class GameLobbyService {
-    private final GameLobbyRepository repository;
+    /*private final GameLobbyRepository repository;
 
     public GameLobbyService(GameLobbyRepository repository) {
         this.repository = repository;

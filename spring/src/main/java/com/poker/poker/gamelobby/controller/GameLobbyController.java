@@ -12,6 +12,7 @@ import com.poker.poker.gamelobby.dto.GameLobbyResponse;
 @RestController
 @RequestMapping("/api/games")
 public class GameLobbyController {
+    /*
     private final GameLobbyService service;
 
     public GameLobbyController(GameLobbyService service) {

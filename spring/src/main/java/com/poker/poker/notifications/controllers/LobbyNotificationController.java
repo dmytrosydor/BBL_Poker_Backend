@@ -10,7 +10,7 @@ import org.springframework.messaging.handler.annotation.MessageMapping;
 
 @Controller
 public class LobbyNotificationController {
-    private final GameLobbyService gameLobbyService;
+    /*private final GameLobbyService gameLobbyService;
 
     public LobbyNotificationController(GameLobbyService gameLobbyService) {
         this.gameLobbyService = gameLobbyService;
@@ -20,5 +20,5 @@ public class LobbyNotificationController {
     @SendTo("/topic/lobby/updates")
     public LobbyUpdate handleLobbyUpdates(LobbyUpdateRequest request) {
         return gameLobbyService.processUpdate(request);
-    }
+    }*/
 }
