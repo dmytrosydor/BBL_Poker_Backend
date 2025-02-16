@@ -53,5 +53,9 @@ public class GameLobby {
     public void setGameInProgress(boolean gameInProgress) {
         this.gameInProgress = gameInProgress;
     }
+
+    public boolean isGameInProgress() {
+        return gameInProgress;
+    }
 }
 

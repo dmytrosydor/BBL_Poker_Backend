@@ -7,10 +7,12 @@ public class PlayerInGame {
     private final Player player;
     private List<Card> hand;
     private PlayerBestHand pbh;
+    private int balance;
 
     public PlayerInGame(Player player) {
         this.player = player;
         this.hand = new ArrayList<>();
+        this.balance = 1000;
     }
 
     public Player getPlayer() {
@@ -31,5 +33,13 @@ public class PlayerInGame {
 
     public PlayerBestHand getBestHand() {
         return pbh;
+    }
+
+    public int getBalance() {
+        return balance;
+    }
+
+    public void setBalance(int balance) {
+        this.balance = balance;
     }
 }
