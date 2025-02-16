@@ -7,7 +7,6 @@ import java.util.List;
 import com.poker.poker.gamelobby.service.GameLobbyService; // For the service layer
 import com.poker.poker.gamelobby.dto.CreateLobbyRequest;   // For the DTO
 import com.poker.poker.gamelobby.entity.GameLobby;
-import com.poker.poker.gamelobby.dto.GameLobbyResponse;
 
 @RestController
 @RequestMapping("/api/games")
@@ -25,8 +24,8 @@ public class GameLobbyController {
     }
 
     @GetMapping("/get-all")
-    public ResponseEntity<List<GameLobbyResponse>> getAllGameLobbies() {
-        List<GameLobbyResponse> lobbies = service.getAllLobbies();
+    public ResponseEntity<List<GameLobby>> getAllGameLobbies() {
+        List<GameLobby> lobbies = service.getAllLobbies();
         return ResponseEntity.ok(lobbies);
     }
 

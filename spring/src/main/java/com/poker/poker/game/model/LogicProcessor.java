@@ -7,6 +7,33 @@ import static java.util.Collections.reverseOrder;
 import static java.util.Collections.sort;
 
 public class LogicProcessor {
+    public static WinnerInfo processWinners(GameState gs){
+        List<PlayerInGame> l = gs.getPlayers();
+
+        List<PlayerInGame> win = new ArrayList<>();
+
+        win.add(l.getFirst());
+
+        for (int i = 1; i < l.size(); i++) {
+            PlayerBestHand a = l.get(i).getBestHand(), b = win.getFirst().getBestHand();
+
+            int check = compareHands(a, b);
+
+            switch (check) {
+                case 0:
+                    win.add(l.get(i));
+                    break;
+
+                case 1:
+                    win.clear();
+                    win.add(l.get(i));
+                    break;
+            }
+        }
+
+        return new WinnerInfo(win.size(), win);
+    }
+
     public static PlayerBestHand processBestHand(PlayerInGame p, GameState gs){
         List<Card> cards = gs.getCommunityCards();
 
@@ -340,5 +367,4 @@ public class LogicProcessor {
     private static int compareStraightFlush(PlayerBestHand a, PlayerBestHand b) {
         return compareStraight(a, b);
     }
-
 }

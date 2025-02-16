@@ -8,8 +8,8 @@ public class Player {
     private UUID id;
     private String nickname;
 
-    public Player(UUID id, String nickname) {
-        this.id = id;
+    public Player(String nickname) {
+        this.id = UUID.randomUUID();
         this.nickname = nickname;
     }
 

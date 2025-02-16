@@ -4,28 +4,25 @@ import com.poker.poker.game.model.Player;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 public class GameLobby {
-    private Long id;
+    private UUID id;
     private String lobbyName;
     private Integer playerCount;
     private List<Player> players;
-
-    public GameLobby() {
-        this.playerCount = 0;
-    }
+    private boolean gameInProgress;
 
     public GameLobby(String lobbyName) {
+        this.id = UUID.randomUUID();
         this.lobbyName = lobbyName;
         this.playerCount = 0;
         this.players = new ArrayList<Player>();
+        this.gameInProgress = false;
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
 
-    public Long getId() {
+    public UUID getId() {
         return id;
     }
 
@@ -51,6 +48,14 @@ public class GameLobby {
 
     public void addPlayer(Player player) {
         this.players.add(player);
+    }
+
+    public void setGameInProgress(boolean gameInProgress) {
+        this.gameInProgress = gameInProgress;
+    }
+
+    public boolean isGameInProgress() {
+        return gameInProgress;
     }
 }
 

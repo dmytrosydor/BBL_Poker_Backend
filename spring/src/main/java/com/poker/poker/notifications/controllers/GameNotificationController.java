@@ -1,4 +1,4 @@
-package com.poker.poker.notifications.controllers;
+/*package com.poker.poker.notifications.controllers;
 
 import com.poker.poker.game.service.GameService;
 import com.poker.poker.notifications.entities.GameEvent;
@@ -20,4 +20,4 @@ public class GameNotificationController {
     public GameEvent handleGameEvents(@DestinationVariable Long lobbyId) {
         return gameService.getLastEvent(lobbyId);
     }
-}
+}*/
