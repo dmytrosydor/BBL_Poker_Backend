@@ -48,6 +48,8 @@ public class GameLobby {
 
     public void addPlayer(Player player) {
         this.players.add(player);
+
+        this.playerCount++;
     }
 
     public void setGameInProgress(boolean gameInProgress) {
