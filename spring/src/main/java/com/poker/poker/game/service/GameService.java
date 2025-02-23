@@ -8,12 +8,15 @@ import com.poker.poker.game.dto.PlayerActionRequest;
 import com.poker.poker.game.dto.PlayerActionResponse;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
+import org.springframework.beans.factory.annotation.Autowired;
+import com.poker.poker.gamelobby.service.GameLobbyService;
+
 
 @Service
 public class GameService {
-    /*private final Map<UUID, GameState> gameStore = new ConcurrentHashMap<>();
+    private final Map<UUID, GameState> gameStore = new ConcurrentHashMap<>();
 
-    public GameState createGame(List<PlayerInGame> players) {
+    /*public GameState createGame(List<PlayerInGame> players) {
         UUID gameId = UUID.randomUUID();
         Deck deck = new Deck();
         deck.shuffle();
@@ -111,5 +114,36 @@ public class GameService {
 
         return new PlayerActionResponse(true, "Card drawn successfully", gameState);
     }*/
+
+    public boolean removePlayerFromGame(UUID gameId, UUID playerId) {
+        GameState gameState = gameStore.get(gameId);
+        if (gameState == null) {
+            return false;
+        }
+
+        Optional<PlayerInGame> playerOptional = gameState.getPlayers().stream()
+                .filter(pg -> pg.getPlayer().getId().equals(playerId))
+                .findFirst();
+
+        if (playerOptional.isPresent()) {
+            gameState.getPlayers().remove(playerOptional.get());
+            return true;
+        }
+        return false;
+    }
+
+    @Autowired
+    private GameLobbyService gameLobbyService;
+
+    public boolean removePlayerCompletely(UUID gameId, UUID lobbyId, UUID playerId) {
+        boolean removedFromGame = removePlayerFromGame(gameId, playerId);
+
+        if (removedFromGame) {
+            gameLobbyService.removePlayerFromLobby(lobbyId, playerId);
+        }
+
+        return removedFromGame;
+    }
+
 }
 

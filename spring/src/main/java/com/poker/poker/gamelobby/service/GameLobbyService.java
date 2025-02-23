@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class GameLobbyService {
@@ -36,7 +37,7 @@ public class GameLobbyService {
         return new LobbyUpdate();
     }
 
-    /*public GameLobby joinLobby(Long lobbyId, String playerName) {
+    public GameLobby joinLobby(Long lobbyId, String playerName) {
         Optional<GameLobby> lobbyOpt = repository.findById(lobbyId);
         if (lobbyOpt.isPresent()) {
             GameLobby lobby = lobbyOpt.get();
@@ -55,6 +56,25 @@ public class GameLobbyService {
         }
         throw new RuntimeException("Lobby not found");
     }*/
+
+    public boolean removePlayerFromLobby(UUID lobbyId, UUID playerId) {
+        Optional<GameLobby> lobbyOpt = lobbyList.stream()
+                .filter(lobby -> lobby.getId().equals(lobbyId))
+                .findFirst();
+
+        if (lobbyOpt.isPresent()) {
+            GameLobby lobby = lobbyOpt.get();
+
+            boolean removed = lobby.getPlayers().removeIf(player -> player.getId().equals(playerId));
+
+            lobby.setPlayerCount(lobby.getPlayers().size());
+
+            return removed;
+        } else {
+            throw new RuntimeException("Lobby not found");
+        }
+    }
+
 }
 
 
