@@ -1,13 +1,17 @@
 package com.poker.poker.gamelobby.controller;
 
+import com.poker.poker.gamelobby.dto.PlayerJoinRequest;
+import com.poker.poker.gamelobby.dto.PlayerJoinResponse;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
+import java.util.UUID;
 
 import com.poker.poker.gamelobby.service.GameLobbyService; // For the service layer
 import com.poker.poker.gamelobby.dto.CreateLobbyRequest;   // For the DTO
 import com.poker.poker.gamelobby.entity.GameLobby;
 
+@CrossOrigin(origins = "http://localhost:5173")
 @RestController
 @RequestMapping("/api/games")
 public class GameLobbyController {
@@ -29,11 +33,13 @@ public class GameLobbyController {
         return ResponseEntity.ok(lobbies);
     }
 
-    /*@PostMapping("/join/{lobbyId}")
-    public ResponseEntity<GameLobby> joinLobby(@PathVariable Long lobbyId, @RequestParam String playerName) {
-        GameLobby updatedLobby = service.joinLobby(lobbyId, playerName);
+    @PostMapping("/join/{lobbyId}")
+    public ResponseEntity<PlayerJoinResponse> joinLobby(@PathVariable UUID lobbyId, @RequestBody PlayerJoinRequest request) {
+        PlayerJoinResponse updatedLobby = service.joinLobby(lobbyId, request.getPlayerName());
         return ResponseEntity.ok(updatedLobby);
     }
+
+    /*
 
     @PostMapping("/leave/{lobbyId}")
     public ResponseEntity<GameLobby> leaveLobby(@PathVariable Long lobbyId, @RequestParam String playerName) {
