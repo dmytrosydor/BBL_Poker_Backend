@@ -5,7 +5,6 @@ import com.poker.poker.gamelobby.entity.GameLobby;
 import java.util.*;
 
 public class GameState {
-    private UUID gameId;
     private List<PlayerInGame> players;
     private GamePhase phase;
     private Deck deck;
@@ -14,7 +13,6 @@ public class GameState {
     private WinnerInfo winnerInfo;
 
     public GameState(GameLobby gl) {
-        this.gameId = UUID.randomUUID();
         this.players = new ArrayList<>();
 
         List<Player> lobbyList = gl.getPlayers();
@@ -26,14 +24,6 @@ public class GameState {
         this.deck.shuffle();
         this.pot = 0;
         this.communityCards = new ArrayList<>();
-    }
-
-    public UUID getGameId() {
-        return gameId;
-    }
-
-    public void setGameId(UUID gameId) {
-        this.gameId = gameId;
     }
 
     public List<PlayerInGame> getPlayers() {
