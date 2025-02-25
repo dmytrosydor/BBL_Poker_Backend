@@ -29,6 +29,18 @@ public class GameLobbyService {
         return newLobby;
     }
 
+    public GameLobby getLobby(UUID id) {
+        GameLobby gl = null;
+
+        for (GameLobby gameLobby : this.lobbyList) {
+            if (gameLobby.getId().equals(id)) {
+                gl = gameLobby;
+            }
+        }
+
+        return gl;
+    }
+
     public List<GameLobby> getAllLobbies() {
         return lobbyList;
     }

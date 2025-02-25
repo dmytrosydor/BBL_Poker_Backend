@@ -33,6 +33,12 @@ public class GameLobbyController {
         return ResponseEntity.ok(lobbies);
     }
 
+    @GetMapping("/get/{lobbyId}")
+    public ResponseEntity<GameLobby> getGameLobby(@PathVariable UUID lobbyId) {
+        GameLobby gameLobby = service.getLobby(lobbyId);
+        return ResponseEntity.ok(gameLobby);
+    }
+
     @PostMapping("/join/{lobbyId}")
     public ResponseEntity<PlayerJoinResponse> joinLobby(@PathVariable UUID lobbyId, @RequestBody PlayerJoinRequest request) {
         PlayerJoinResponse updatedLobby = service.joinLobby(lobbyId, request.getPlayerName());
