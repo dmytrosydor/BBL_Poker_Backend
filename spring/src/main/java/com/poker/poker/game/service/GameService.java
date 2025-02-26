@@ -1,5 +1,8 @@
 package com.poker.poker.game.service;
 
+import com.poker.poker.game.actions.ActionType;
+import com.poker.poker.game.actions.CommunityCard;
+import com.poker.poker.game.actions.OrdinalPBS;
 import com.poker.poker.game.model.*;
 import com.poker.poker.notifications.entities.GameEvent;
 import com.poker.poker.notifications.entities.LobbyUpdate;
@@ -15,6 +18,23 @@ import com.poker.poker.gamelobby.service.GameLobbyService;
 @Service
 public class GameService {
     private final Map<UUID, GameState> gameStore = new ConcurrentHashMap<>();
+
+    public CommunityCard messageTest(){
+        return new CommunityCard(ActionType.COMMUNITY_CARD, new Card(Suit.DIAMONDS, Rank.ACE));
+    }
+
+    public OrdinalPBS messageTestPBS(){
+        Deck d = new Deck();
+        d.shuffle();
+
+        List<Card> cards = new ArrayList<>();
+
+        for (int i = 0; i < 5; i++) {
+            cards.add(d.drawCard());
+        }
+
+        return new OrdinalPBS(ActionType.BEST_HAND, new PlayerBestHand(LogicProcessor.getCombination(cards), cards));
+    }
 
     /*public GameState createGame(List<PlayerInGame> players) {
         UUID gameId = UUID.randomUUID();
