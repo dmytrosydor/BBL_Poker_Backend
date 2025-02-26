@@ -1,12 +1,16 @@
 package com.poker.poker.gamelobby.service;
 
+import com.poker.poker.WebSocket.WebSocketService;
 import com.poker.poker.game.model.Player;
 import com.poker.poker.gamelobby.dto.PlayerJoinResponse;
 import com.poker.poker.gamelobby.entity.GameLobby;        // For the entity
 
 import com.poker.poker.notifications.dto.LobbyUpdateRequest;
 import com.poker.poker.notifications.entities.LobbyUpdate;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Service;
+import org.springframework.web.socket.client.WebSocketClient;
+import com.poker.poker.WebSocket.WebSocketService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,7 +23,14 @@ import java.util.UUID;
 public class GameLobbyService {
     private List<GameLobby> lobbyList;
 
-    public GameLobbyService() {
+    /*public GameLobbyService() {
+        this.lobbyList = new ArrayList<>();
+    }*/
+
+    private final WebSocketService webSocketService;
+
+    public GameLobbyService(WebSocketService webSocketService) {
+        this.webSocketService = webSocketService;
         this.lobbyList = new ArrayList<>();
     }
 
@@ -60,6 +71,18 @@ public class GameLobbyService {
         gl.addPlayer(p);
 
         return new PlayerJoinResponse(p.getId(), gl.getId());
+    }
+
+    public int WebSocketTest(UUID gameId, UUID playerId) {
+        String jsonString = "{\"firstName\":\"Vladyslav\",\"lastName\":\"Pushak\"}";
+
+        webSocketService.sendMessageToGame(gameId, jsonString);
+
+        webSocketService.sendMessageToPlayer(playerId, jsonString);
+
+
+
+        return 1;
     }
 
     /*

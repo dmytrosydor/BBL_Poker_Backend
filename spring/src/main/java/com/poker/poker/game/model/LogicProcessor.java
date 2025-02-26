@@ -52,7 +52,7 @@ public class LogicProcessor {
         return ans;
     }
 
-    private static Combination getCombination(List<Card> cards) {
+    public static Combination getCombination(List<Card> cards) {
         int[] rankCount = new int[13];
         int[] suitCount = new int[4];
 

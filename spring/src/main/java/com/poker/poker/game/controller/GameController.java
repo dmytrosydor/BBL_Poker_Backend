@@ -1,5 +1,6 @@
 package com.poker.poker.game.controller;
 
+import com.poker.poker.game.actions.Action;
 import com.poker.poker.game.model.*;
 import com.poker.poker.game.service.GameService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,6 +49,13 @@ public class GameController {
             return ResponseEntity.notFound().build();
         }
     }*/
+
+    @GetMapping("/card")
+    public ResponseEntity<Action> getCard() {
+        Action action = gameService.messageTestPBS();
+
+        return ResponseEntity.ok(action);
+    }
 
     @DeleteMapping("/removePlayer/{gameId}/{lobbyId}/{playerId}")
     public ResponseEntity<String> removePlayer(@PathVariable UUID gameId,
