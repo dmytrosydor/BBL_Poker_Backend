@@ -73,18 +73,6 @@ public class GameLobbyService {
         return new PlayerJoinResponse(p.getId(), gl.getId());
     }
 
-    public int WebSocketTest(UUID gameId, UUID playerId) {
-        String jsonString = "{\"firstName\":\"Vladyslav\",\"lastName\":\"Pushak\"}";
-
-        webSocketService.sendMessageToGame(gameId, jsonString);
-
-        webSocketService.sendMessageToPlayer(playerId, jsonString);
-
-
-
-        return 1;
-    }
-
     /*
 
     public LobbyUpdate processUpdate(LobbyUpdateRequest request){

@@ -45,12 +45,6 @@ public class GameLobbyController {
         return ResponseEntity.ok(updatedLobby);
     }
 
-    @PostMapping("/websocket-test")
-    public ResponseEntity<Integer> websocketTest(@RequestBody PlayerJoinResponse request) {
-        Integer n = service.WebSocketTest(request.getLobbyId(), request.getPlayerId());
-        return ResponseEntity.ok(n);
-    }
-
     /*
 
     @PostMapping("/leave/{lobbyId}")
