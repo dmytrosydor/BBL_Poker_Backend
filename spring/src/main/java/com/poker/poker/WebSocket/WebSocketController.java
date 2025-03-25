@@ -70,7 +70,7 @@ public class WebSocketController {
             if (rr.ordinal() == b) r = rr;
         }
 
-        CommunityCard card = new CommunityCard(ActionType.COMMUNITY_CARD, new Card(c, r));
+        HoleCard card = new HoleCard(ActionType.HOLE_CARD, new Card(c, r));
 
         UUID uuid = UUID.fromString(playerId);
 

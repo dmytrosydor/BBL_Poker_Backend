@@ -1,6 +1,8 @@
 package com.poker.poker.game.casino;
 
 import com.poker.poker.WebSocket.WebSocketService;
+import com.poker.poker.game.actions.Action;
+import com.poker.poker.game.actions.ActionType;
 import com.poker.poker.game.model.GameState;
 import com.poker.poker.gamelobby.entity.GameLobby;
 import org.springframework.stereotype.Service;
@@ -33,6 +35,14 @@ public class Casino {
         }
 
         return null;
+    }
+
+    public Action prepareResponse(Action action){
+        /*switch (action.getActionType()){
+
+        }*/
+
+        return new Action(ActionType.HOLE_CARD);
     }
 
     //public void processMessage()
