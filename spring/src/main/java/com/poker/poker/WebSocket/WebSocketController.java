@@ -1,9 +1,6 @@
 package com.poker.poker.WebSocket;
 
-import com.poker.poker.game.actions.ActionType;
-import com.poker.poker.game.actions.CommunityCard;
-import com.poker.poker.game.actions.HoleCard;
-import com.poker.poker.game.actions.OrdinalCard;
+import com.poker.poker.game.actions.*;
 import com.poker.poker.game.feedback.GameMessage;
 import com.poker.poker.game.model.Card;
 import com.poker.poker.game.model.Rank;
@@ -55,7 +52,7 @@ public class WebSocketController {
         System.out.println("Community card sent");
     }
 
-    @GetMapping("player_test/{playerId}")
+    @GetMapping("/player_test/{playerId}")
     public void testHoleCards(@PathVariable String playerId, @RequestBody CardRequest cardRequest){
         Suit c = null;
         Rank r = null;
@@ -79,5 +76,10 @@ public class WebSocketController {
         System.out.println("Hole card sent");
     }
 
+    @GetMapping("/pot-test/{gameId}/{playerId}")
+    public void testPot(@PathVariable String gameId, @PathVariable String playerId){
+        PlayerCall playerCall = new PlayerCall(ActionType.PLAYER_CALL, UUID.fromString(playerId), 52, 1488);
 
+        webSocketService.sendMessageToGame(UUID.fromString(gameId), playerCall);
+    }
 }
