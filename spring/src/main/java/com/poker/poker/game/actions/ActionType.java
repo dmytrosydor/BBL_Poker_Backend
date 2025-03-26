@@ -5,5 +5,6 @@ public enum ActionType {
     COMMUNITY_CARD,
     BEST_HAND,
     PLAYER_CALL,
-    PLAYER_FOLD
+    PLAYER_FOLD,
+    PLAYER_TURN
 }

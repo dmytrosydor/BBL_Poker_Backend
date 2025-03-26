@@ -7,8 +7,8 @@ public class PlayerCall extends Action {
     private int amount;
     private int newPot;
 
-    public PlayerCall(ActionType actionType, UUID playerId, int amount, int newPot) {
-        super(actionType);
+    public PlayerCall(UUID playerId, int amount, int newPot) {
+        super(ActionType.PLAYER_CALL);
 
         this.playerId = playerId;
         this.amount = amount;

@@ -7,8 +7,8 @@ import com.poker.poker.game.model.Suit;
 public class HoleCard extends Action {
     public OrdinalCard ordinalCard;
 
-    public HoleCard(ActionType actionType, Card card) {
-        super(actionType);
+    public HoleCard(Card card) {
+        super(ActionType.HOLE_CARD);
 
         this.ordinalCard = new OrdinalCard(card);
 

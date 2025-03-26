@@ -1,5 +1,7 @@
 package com.poker.poker.game.model;
 
+import com.poker.poker.game.actions.Action;
+import com.poker.poker.game.feedback.GameMessage;
 import com.poker.poker.gamelobby.entity.GameLobby;
 
 import java.util.*;
@@ -10,8 +12,11 @@ public class GameState {
     private GamePhase phase;
     private Deck deck;
     private int pot;
+    private int currentBet;
+    private int callCount;
     private List<Card> communityCards;
     private WinnerInfo winnerInfo;
+    private List<Action> actionList;
 
     public GameState(GameLobby gl) {
         this.id = gl.getId();
@@ -27,6 +32,8 @@ public class GameState {
         this.deck.shuffle();
         this.pot = 0;
         this.communityCards = new ArrayList<>();
+        this.winnerInfo = null;
+        this.actionList = new ArrayList<>();
         this.phase = GamePhase.PREFLOP;
     }
 
@@ -76,5 +83,17 @@ public class GameState {
 
     public void setWinnerInfo(WinnerInfo winnerInfo) {
         this.winnerInfo = winnerInfo;
+    }
+
+    public List<Action> getActionList() {
+        return actionList;
+    }
+
+    public void emptyActionList() {
+        this.actionList.clear();
+    }
+
+    public void processMessage(GameMessage message) {
+
     }
 }
