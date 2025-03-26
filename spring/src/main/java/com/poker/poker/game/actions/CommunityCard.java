@@ -5,8 +5,8 @@ import com.poker.poker.game.model.Card;
 public class CommunityCard extends Action {
     public OrdinalCard ordinalCard;
 
-    public CommunityCard(ActionType actionType, Card card) {
-        super(actionType);
+    public CommunityCard(Card card) {
+        super(ActionType.COMMUNITY_CARD);
 
         this.ordinalCard = new OrdinalCard(card);
 

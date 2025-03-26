@@ -5,27 +5,16 @@ import com.poker.poker.game.model.Player;
 import com.poker.poker.gamelobby.dto.PlayerJoinResponse;
 import com.poker.poker.gamelobby.entity.GameLobby;        // For the entity
 
-import com.poker.poker.notifications.dto.LobbyUpdateRequest;
-import com.poker.poker.notifications.entities.LobbyUpdate;
-import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Service;
-import org.springframework.web.socket.client.WebSocketClient;
-import com.poker.poker.WebSocket.WebSocketService;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
-import java.util.stream.Collectors;
 import java.util.Optional;
-import java.util.UUID;
 
 @Service
 public class GameLobbyService {
     private List<GameLobby> lobbyList;
-
-    /*public GameLobbyService() {
-        this.lobbyList = new ArrayList<>();
-    }*/
 
     private final WebSocketService webSocketService;
 

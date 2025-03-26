@@ -9,8 +9,8 @@ import java.util.List;
 public class OrdinalPBS extends Action {
     public List<OrdinalCard> ordinalPBS;
 
-    public OrdinalPBS(ActionType actionType, PlayerBestHand playerBestHand) {
-        super(actionType);
+    public OrdinalPBS(PlayerBestHand playerBestHand) {
+        super(ActionType.BEST_HAND);
 
         this.ordinalPBS = new ArrayList<>();
 

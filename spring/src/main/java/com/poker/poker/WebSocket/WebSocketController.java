@@ -43,7 +43,7 @@ public class WebSocketController {
             if (rr.ordinal() == b) r = rr;
         }
 
-        CommunityCard card = new CommunityCard(ActionType.COMMUNITY_CARD, new Card(c, r));
+        CommunityCard card = new CommunityCard(new Card(c, r));
 
         UUID uuid = UUID.fromString(gameId);
 
@@ -67,7 +67,7 @@ public class WebSocketController {
             if (rr.ordinal() == b) r = rr;
         }
 
-        HoleCard card = new HoleCard(ActionType.HOLE_CARD, new Card(c, r));
+        HoleCard card = new HoleCard(new Card(c, r));
 
         UUID uuid = UUID.fromString(playerId);
 
@@ -76,9 +76,9 @@ public class WebSocketController {
         System.out.println("Hole card sent");
     }
 
-    @GetMapping("/pot-test/{gameId}/{playerId}")
+    @GetMapping("/pot_test/{gameId}/{playerId}")
     public void testPot(@PathVariable String gameId, @PathVariable String playerId){
-        PlayerCall playerCall = new PlayerCall(ActionType.PLAYER_CALL, UUID.fromString(playerId), 52, 1488);
+        PlayerCall playerCall = new PlayerCall(UUID.fromString(playerId), 52, 1488);
 
         webSocketService.sendMessageToGame(UUID.fromString(gameId), playerCall);
     }
