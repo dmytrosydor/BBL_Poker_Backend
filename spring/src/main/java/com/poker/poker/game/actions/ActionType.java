@@ -6,5 +6,6 @@ public enum ActionType {
     BEST_HAND,
     PLAYER_CALL,
     PLAYER_FOLD,
-    PLAYER_TURN
+    PLAYER_TURN,
+    PLAYER_JOIN
 }

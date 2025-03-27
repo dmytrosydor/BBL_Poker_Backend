@@ -82,4 +82,11 @@ public class WebSocketController {
 
         webSocketService.sendMessageToGame(UUID.fromString(gameId), playerCall);
     }
+
+    @GetMapping("/bet_test/{gameId}/{playerId}")
+    public void testBet(@PathVariable String gameId, @PathVariable String playerId){
+        PlayerTurn playerTurn = new PlayerTurn(UUID.fromString(playerId));
+
+        webSocketService.sendMessageToGame(UUID.fromString(gameId), playerTurn);
+    }
 }
