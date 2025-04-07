@@ -2,13 +2,15 @@ package com.poker.poker.game.feedback;
 
 import java.util.UUID;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 
 @JsonTypeInfo(
         use = JsonTypeInfo.Id.NAME,
-        include = JsonTypeInfo.As.EXISTING_PROPERTY,
-        property = "actionType"
+        include = JsonTypeInfo.As.PROPERTY,
+        property = "actionType",
+        visible = true
 )
 @JsonSubTypes({
         @JsonSubTypes.Type(value = CallMessage.class, name = "3"),
@@ -24,6 +26,7 @@ public abstract class GameMessage {
         return actionType;
     }
 
+    @JsonProperty("actionType")
     public void setActionType(int actionType) {
         this.actionType = actionType;
     }
@@ -32,6 +35,7 @@ public abstract class GameMessage {
         return playerId;
     }
 
+    @JsonProperty("playerId")
     public void setPlayerId(UUID playerId) {
         this.playerId = playerId;
     }
@@ -40,6 +44,7 @@ public abstract class GameMessage {
         return gameId;
     }
 
+    @JsonProperty("gameId")
     public void setGameId(UUID gameId) {
         this.gameId = gameId;
     }

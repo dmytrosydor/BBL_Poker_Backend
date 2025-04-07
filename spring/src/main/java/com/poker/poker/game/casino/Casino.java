@@ -18,10 +18,12 @@ public class Casino {
         gameList = new ArrayList<>();
     }
 
-    public void addGame(GameLobby gameLobby){
+    public GameState addGame(GameLobby gameLobby){
         GameState gameState = new GameState(gameLobby);
 
         this.gameList.add(gameState);
+
+        return gameState;
     }
 
     public GameState getGameById(UUID gameId){
@@ -29,16 +31,24 @@ public class Casino {
             if (gameId == gameState.getId()) return gameState;
         }
 
-        return null;
+        return gameList.getFirst();
+    }
+
+    public List<Action> getGameActions(GameState gameState){
+        List<Action> actions = List.copyOf(gameState.getActionList());
+
+        gameState.emptyActionList();
+
+        return actions;
     }
 
     public List<Action> processMessage(GameMessage gameMessage){
+        System.out.println("Processing in Casino");
+
         GameState gameState = getGameById(gameMessage.getGameId());
 
         gameState.processMessage(gameMessage);
 
-        List<Action> actions = gameState.getActionList();
-
-        return new ArrayList<>();
+        return getGameActions(gameState);
     }
 }

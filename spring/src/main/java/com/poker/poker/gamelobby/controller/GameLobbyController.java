@@ -7,8 +7,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.UUID;
 
-import com.poker.poker.gamelobby.service.GameLobbyService; // For the service layer
-import com.poker.poker.gamelobby.dto.CreateLobbyRequest;   // For the DTO
+import com.poker.poker.gamelobby.service.GameLobbyService;
+import com.poker.poker.gamelobby.dto.CreateLobbyRequest;
 import com.poker.poker.gamelobby.entity.GameLobby;
 
 @CrossOrigin(origins = "http://localhost:5173")
@@ -23,7 +23,7 @@ public class GameLobbyController {
 
     @PostMapping("/create")
     public ResponseEntity<GameLobby> createGameLobby(@RequestBody CreateLobbyRequest request) {
-        GameLobby createdLobby = service.createLobby(request.getLobbyName());
+        GameLobby createdLobby = service.createLobby(request.getLobbyName(), request.getPlayerRequirement());
         return ResponseEntity.ok(createdLobby);
     }
 
@@ -44,12 +44,4 @@ public class GameLobbyController {
         PlayerJoinResponse updatedLobby = service.joinLobby(lobbyId, request.getPlayerName());
         return ResponseEntity.ok(updatedLobby);
     }
-
-    /*
-
-    @PostMapping("/leave/{lobbyId}")
-    public ResponseEntity<GameLobby> leaveLobby(@PathVariable Long lobbyId, @RequestParam String playerName) {
-        GameLobby updatedLobby = service.leaveLobby(lobbyId, playerName);
-        return ResponseEntity.ok(updatedLobby);
-    }*/
 }

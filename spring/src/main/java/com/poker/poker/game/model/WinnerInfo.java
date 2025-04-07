@@ -10,5 +10,9 @@ public class WinnerInfo {
         this.winnerCount = winnerCount;
         this.winners = winners;
     }
+
+    public List<PlayerInGame> getWinners() {
+        return winners;
+    }
 }
 

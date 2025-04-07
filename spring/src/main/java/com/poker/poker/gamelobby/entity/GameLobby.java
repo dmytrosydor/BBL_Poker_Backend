@@ -9,15 +9,17 @@ import java.util.UUID;
 public class GameLobby {
     private UUID id;
     private String lobbyName;
-    private Integer playerCount;
+    private int playerCount;
+    private int playerRequirement;
     private List<Player> players;
     private boolean gameInProgress;
 
-    public GameLobby(String lobbyName) {
+    public GameLobby(String lobbyName, int playerRequirement) {
         this.id = UUID.randomUUID();
         this.lobbyName = lobbyName;
         this.playerCount = 0;
-        this.players = new ArrayList<Player>();
+        this.playerRequirement = playerRequirement;
+        this.players = new ArrayList<>();
         this.gameInProgress = false;
     }
 
@@ -30,16 +32,12 @@ public class GameLobby {
         return lobbyName;
     }
 
-    public void setLobbyName(String lobbyName) {
-        this.lobbyName = lobbyName;
-    }
-
-    public Integer getPlayerCount() {
+    public int getPlayerCount() {
         return playerCount;
     }
 
-    public void setPlayerCount(Integer playerCount) {
-        this.playerCount = playerCount;
+    public int getPlayerRequirement() {
+        return playerRequirement;
     }
 
     public List<Player> getPlayers() {
