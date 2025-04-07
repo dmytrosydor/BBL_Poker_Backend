@@ -199,8 +199,10 @@ public class LogicProcessor {
         aKickers.sort(reverseOrder());
         bKickers.sort(reverseOrder());
 
+        System.out.println("Kickers_size:" +aKickers.size() + " " + bKickers.size());
+
         for (int i = 0; i < aKickers.size(); i++) {
-            if (aKickers.get(i) > bKickers.get(i)) return 1;
+            if (aKickers.get(i) > bKickers.get(i)) return 1; //line 203
 
             else if (aKickers.get(i) < bKickers.get(i)) return 2;
         }

@@ -7,5 +7,6 @@ public enum ActionType {
     PLAYER_CALL,
     PLAYER_FOLD,
     PLAYER_TURN,
-    PLAYER_JOIN
+    PLAYER_JOIN,
+    WINNERS
 }

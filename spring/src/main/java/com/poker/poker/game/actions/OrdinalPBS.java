@@ -1,27 +1,26 @@
 package com.poker.poker.game.actions;
 
-import com.poker.poker.game.model.Card;
 import com.poker.poker.game.model.PlayerBestHand;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.UUID;
 
 public class OrdinalPBS extends Action {
-    public List<OrdinalCard> ordinalPBS;
+    private int ordinal;
+    private UUID playerId;
 
-    public OrdinalPBS(PlayerBestHand playerBestHand) {
+    public OrdinalPBS(PlayerBestHand playerBestHand, UUID playerId) {
         super(ActionType.BEST_HAND);
 
-        this.ordinalPBS = new ArrayList<>();
+        this.ordinal = playerBestHand.getCombination().ordinal();
+        this.playerId = playerId;
 
-        List<Card> cards = playerBestHand.getCards();
-
-        for (Card card : cards) {
-            ordinalPBS.add(new OrdinalCard(card));
-        }
     }
 
-    public List<OrdinalCard> getOrdinalPBS() {
-        return ordinalPBS;
+    public int getOrdinal() {
+        return ordinal;
+    }
+
+    public UUID getPlayerId() {
+        return playerId;
     }
 }

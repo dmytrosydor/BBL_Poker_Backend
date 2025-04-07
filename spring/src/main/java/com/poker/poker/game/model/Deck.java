@@ -16,20 +16,12 @@ public class Deck {
         }
     }
 
-    public List<Card> drawCards(int numberOfCards) {
-        List<Card> drawnCards = new ArrayList<>();
-        for (int i = 0; i < numberOfCards && !cards.isEmpty(); i++) {
-            drawnCards.add(cards.remove(0));
-        }
-        return drawnCards;
-    }
-
     public void shuffle() {
         Collections.shuffle(cards);
     }
 
     public Card drawCard() {
-        return cards.isEmpty() ? null : cards.remove(0);
+        return cards.isEmpty() ? null : cards.removeFirst();
     }
 
     public List<Card> getCards() {

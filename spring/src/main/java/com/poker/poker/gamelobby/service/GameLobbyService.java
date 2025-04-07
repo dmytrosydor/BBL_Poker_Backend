@@ -1,31 +1,34 @@
 package com.poker.poker.gamelobby.service;
 
-import com.poker.poker.WebSocket.WebSocketService;
+import com.poker.poker.WebSocket.GameStartEvent;
+import com.poker.poker.WebSocket.PlayerJoinEvent;
 import com.poker.poker.game.model.Player;
 import com.poker.poker.gamelobby.dto.PlayerJoinResponse;
 import com.poker.poker.gamelobby.entity.GameLobby;        // For the entity
 
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
-import java.util.Optional;
+import java.util.concurrent.CompletableFuture;
 
 @Service
 public class GameLobbyService {
     private List<GameLobby> lobbyList;
+    private final ApplicationEventPublisher eventPublisher;
 
-    private final WebSocketService webSocketService;
-
-    public GameLobbyService(WebSocketService webSocketService) {
-        this.webSocketService = webSocketService;
+    public GameLobbyService(ApplicationEventPublisher eventPublisher) {
+        this.eventPublisher = eventPublisher;
         this.lobbyList = new ArrayList<>();
     }
 
-    public GameLobby createLobby(String lobbyName) {
-        GameLobby newLobby = new GameLobby(lobbyName);
+    public GameLobby createLobby(String lobbyName, int playerRequirement) {
+        GameLobby newLobby = new GameLobby(lobbyName, playerRequirement);
         this.lobbyList.add(newLobby);
+
+        System.out.println("Lobby created: " + newLobby.getLobbyName() + " player_req: " + newLobby.getPlayerRequirement());
 
         return newLobby;
     }
@@ -46,10 +49,18 @@ public class GameLobbyService {
         return lobbyList;
     }
 
+    public void sendGameStartEvent(GameLobby gameLobby) {
+        eventPublisher.publishEvent(new GameStartEvent(this, gameLobby));
+    }
+
+    public void sendPlayerJoinEvent(GameLobby gameLobby, Player player) {
+        eventPublisher.publishEvent(new PlayerJoinEvent(this, gameLobby.getId(), player.getId()));
+    }
+
     public PlayerJoinResponse joinLobby(UUID lobbyId, String playerName) {
         GameLobby gl = null;
 
-        for (GameLobby gameLobby : this.lobbyList) {
+        for (GameLobby gameLobby : lobbyList) {
             if (gameLobby.getId().equals(lobbyId)) {
                 gl = gameLobby;
             }
@@ -59,53 +70,30 @@ public class GameLobbyService {
 
         gl.addPlayer(p);
 
-        return new PlayerJoinResponse(p.getId(), gl.getId());
-    }
+        PlayerJoinResponse response = new PlayerJoinResponse(p.getId(), gl.getId());
 
-    /*
+        GameLobby finalGl = gl;
 
-    public LobbyUpdate processUpdate(LobbyUpdateRequest request){
-        return new LobbyUpdate();
-    }
-
-    public GameLobby joinLobby(Long lobbyId, String playerName) {
-        Optional<GameLobby> lobbyOpt = repository.findById(lobbyId);
-        if (lobbyOpt.isPresent()) {
-            GameLobby lobby = lobbyOpt.get();
-            lobby.addPlayer(playerName);
-            return repository.save(lobby);
+        if (finalGl.getPlayerCount() > 1) {
+            sendPlayerJoinEvent(finalGl, p);;
         }
-        throw new RuntimeException("Lobby not found");
-    }
 
-    public GameLobby leaveLobby(Long lobbyId, String playerName) {
-        Optional<GameLobby> lobbyOpt = repository.findById(lobbyId);
-        if (lobbyOpt.isPresent()) {
-            GameLobby lobby = lobbyOpt.get();
-            lobby.removePlayer(playerName);
-            return repository.save(lobby);
+        //RETARDED
+
+        if (finalGl.getPlayerCount() == finalGl.getPlayerRequirement()){
+            CompletableFuture.runAsync(() -> {
+                {
+                    try {
+                        Thread.sleep(5000);
+                    } catch (InterruptedException e) {
+                        throw new RuntimeException(e);
+                    }
+
+                    sendGameStartEvent(finalGl);
+                }
+            });
         }
-        throw new RuntimeException("Lobby not found");
-    }*/
 
-    public boolean removePlayerFromLobby(UUID lobbyId, UUID playerId) {
-        Optional<GameLobby> lobbyOpt = lobbyList.stream()
-                .filter(lobby -> lobby.getId().equals(lobbyId))
-                .findFirst();
-
-        if (lobbyOpt.isPresent()) {
-            GameLobby lobby = lobbyOpt.get();
-
-            boolean removed = lobby.getPlayers().removeIf(player -> player.getId().equals(playerId));
-
-            lobby.setPlayerCount(lobby.getPlayers().size());
-
-            return removed;
-        } else {
-            throw new RuntimeException("Lobby not found");
-        }
+        return response;
     }
-
 }
-
-
