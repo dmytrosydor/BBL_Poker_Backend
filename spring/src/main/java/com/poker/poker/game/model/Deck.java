@@ -21,7 +21,7 @@ public class Deck {
     }
 
     public Card drawCard() {
-        return cards.isEmpty() ? null : cards.removeFirst();
+        return cards.isEmpty() ? null : cards.remove(0);
     }
 
     public List<Card> getCards() {
