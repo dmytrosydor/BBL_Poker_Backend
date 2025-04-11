@@ -64,7 +64,7 @@ public class LogicProcessor {
         boolean isFlush = false;
 
         for (int count : suitCount){
-            if (count >= 5){
+            if (count == 5){
                 isFlush = true;
                 break;
             }
@@ -96,10 +96,10 @@ public class LogicProcessor {
     private static Combination getHandRank(int[] rankCount, boolean isFlush, boolean isStraight) {
         int pairs = 0, three = 0, four = 0;
 
-        for (int count : rankCount) {
-            if (count == 4) four++;
-            if (count == 3) three++;
-            if (count == 2) pairs++;
+        for (int i = 0; i < 13; i++) {
+           if (rankCount[i] == 2) {pairs++;}
+           if (rankCount[i] == 3) {three++;}
+           if (rankCount[i] == 4) {four++;}
         }
 
         if (isFlush && isStraight) return isRoyalFlush(rankCount);
@@ -133,7 +133,7 @@ public class LogicProcessor {
         for (int i = start; i < cards.size(); i++) {
             combination.add(cards.get(i));
             generateCombinations(cards, result, combination, i + 1);
-            combination.remove(0);
+            combination.remove(combination.size() - 1);
         }
     }
 
