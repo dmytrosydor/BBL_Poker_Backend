@@ -5,23 +5,24 @@ import com.poker.poker.game.model.WinnerInfo;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 public class Winners extends Action {
-    private List<UUID> winnerIds;
+    private List<Winner> winnerList;
 
     public Winners(WinnerInfo winnerInfo) {
         super(ActionType.WINNERS);
 
-        winnerIds = new ArrayList<>();
+        this.winnerList = new ArrayList<>();
 
-        for (PlayerInGame player : winnerInfo.getWinners()){
-            winnerIds.add(player.getPlayer().getId());
+        List<PlayerInGame> pigs = winnerInfo.getWinners();
+
+        for (PlayerInGame pig : pigs) {
+            winnerList.add(new Winner(pig));
         }
 
     }
 
-    public List<UUID> getWinnerIds() {
-        return winnerIds;
+    public List<Winner> getWinnerList() {
+        return winnerList;
     }
 }

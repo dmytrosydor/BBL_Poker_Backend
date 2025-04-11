@@ -44,8 +44,6 @@ public class GameState {
         this.actionList = new ArrayList<>();
         this.phase = GamePhase.PREFLOP;
 
-
-
         for (PlayerInGame player : this.players) {
             Card c = deck.drawCard(), cc = deck.drawCard();
 
@@ -229,12 +227,13 @@ public class GameState {
                 WinnerInfo winnerInfo = LogicProcessor.processWinners(this);
 
                 actionList.add(new Winners(winnerInfo));
+
+                System.out.println("WINNER INFO");
                 break;
         }
     }
 
     public void processMessage(GameMessage message) {
-        System.out.println("Processing in GameState " + message.getActionType());
         switch (message.getActionType()){
             case 3:
                 processCall((CallMessage) message);
@@ -247,8 +246,6 @@ public class GameState {
 
     private void processCall(CallMessage message) {
         PlayerInGame player = getPlayer(message.getPlayerId());
-
-        System.out.println("Processing Call");
 
         int og = player.getBalance();
 

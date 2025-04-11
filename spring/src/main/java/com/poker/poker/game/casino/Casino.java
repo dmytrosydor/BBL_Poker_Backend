@@ -28,10 +28,10 @@ public class Casino {
 
     public GameState getGameById(UUID gameId){
         for (GameState gameState : gameList){
-            if (gameId == gameState.getId()) return gameState;
+            if (gameId.equals(gameState.getId())) return gameState;
         }
 
-        return gameList.getFirst();
+        return gameList.get(0);
     }
 
     public List<Action> getGameActions(GameState gameState){

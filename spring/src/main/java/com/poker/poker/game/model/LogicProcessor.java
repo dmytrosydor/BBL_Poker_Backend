@@ -12,10 +12,10 @@ public class LogicProcessor {
 
         List<PlayerInGame> win = new ArrayList<>();
 
-        win.add(l.getFirst());
+        win.add(l.get(0));
 
         for (int i = 1; i < l.size(); i++) {
-            PlayerBestHand a = l.get(i).getBestHand(), b = win.getFirst().getBestHand();
+            PlayerBestHand a = l.get(i).getBestHand(), b = win.get(0).getBestHand();
 
             int check = compareHands(a, b);
 
@@ -35,13 +35,13 @@ public class LogicProcessor {
     }
 
     public static PlayerBestHand processBestHand(PlayerInGame p, GameState gs){
-        List<Card> cards = gs.getCommunityCards();
+        List<Card> cards = new ArrayList<>(gs.getCommunityCards());
 
         cards.addAll(p.getHand());
 
         List<List<Card>> combinatorics = getAll5CardCombinations(cards);
 
-        PlayerBestHand ans = new PlayerBestHand(Combination.HIGH_CARD, combinatorics.getFirst());
+        PlayerBestHand ans = new PlayerBestHand(Combination.HIGH_CARD, combinatorics.get(0));
 
         for (List<Card> combination : combinatorics) {
             PlayerBestHand temp = new PlayerBestHand(getCombination(combination), combination);
@@ -133,7 +133,7 @@ public class LogicProcessor {
         for (int i = start; i < cards.size(); i++) {
             combination.add(cards.get(i));
             generateCombinations(cards, result, combination, i + 1);
-            combination.removeLast();
+            combination.remove(0);
         }
     }
 
@@ -186,7 +186,7 @@ public class LogicProcessor {
         List<Integer> aKickers = new ArrayList<>();
         List<Integer> bKickers = new ArrayList<>();
 
-        for (int i = 0; i < al.size(); i++) {
+        for (int i = 0; i < 13; i++) {
             if (aCount[i] == 2) aa = i;
             if (bCount[i] == 2) bb = i;
 
@@ -198,8 +198,6 @@ public class LogicProcessor {
 
         aKickers.sort(reverseOrder());
         bKickers.sort(reverseOrder());
-
-        System.out.println("Kickers_size:" +aKickers.size() + " " + bKickers.size());
 
         for (int i = 0; i < aKickers.size(); i++) {
             if (aKickers.get(i) > bKickers.get(i)) return 1; //line 203
@@ -220,11 +218,11 @@ public class LogicProcessor {
             bCount[bl.get(i).getRank().ordinal()]++;
         }
 
-        int aFirst = 0, bFirst = 0, aSecond = 0, bSecond = 0, aKicker = 0, bKicker = 0;
+        int aFirst = -1, bFirst = -1, aSecond = -1, bSecond = -1, aKicker = -1, bKicker = -1;
 
-        for (int i = 0; i < al.size(); i++) {
-            if (aCount[i] == 2) aFirst = i;
-            if (bCount[i] == 2) bFirst = i;
+        for (int i = 0; i < 13; i++) {
+            if (aCount[i] == 2 && aFirst == -1) aFirst = i;
+            if (bCount[i] == 2 && bFirst == -1) bFirst = i;
 
             if (aCount[i] == 2 && i != aFirst) aSecond = i;
             if (bCount[i] == 2 && i != bFirst) bSecond = i;
@@ -256,7 +254,7 @@ public class LogicProcessor {
         List<Integer> aKickers = new ArrayList<>();
         List<Integer> bKickers = new ArrayList<>();
 
-        for (int i = 0; i < al.size(); i++) {
+        for (int i = 0; i < 13; i++) {
             if (aCount[i] == 3) aa = i;
             if (bCount[i] == 3) bb = i;
 
@@ -324,7 +322,7 @@ public class LogicProcessor {
 
         int aThree = 0, bThree = 0, aPair = 0, bPair = 0;
 
-        for (int i = 0; i < al.size(); i++) {
+        for (int i = 0; i < 13; i++) {
             if (aCount[i] == 3) aThree = i;
             if (bCount[i] == 3) bThree = i;
 
@@ -351,7 +349,7 @@ public class LogicProcessor {
 
         int aa = 0, bb = 0, aSolo = 0, bSolo = 0;
 
-        for (int i = 0; i < al.size(); i++) {
+        for (int i = 0; i < 13; i++) {
             if (aCount[i] == 4) aa = i;
             if (bCount[i] == 4) bb = i;
 
