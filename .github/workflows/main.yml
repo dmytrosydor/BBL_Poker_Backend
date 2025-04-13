@@ -55,5 +55,5 @@ jobs:
           key: ${{ env.EC2_KEY }}
           script: |
             cd $PROJECT_DIR
-            docker load < bbl_backend.tar
-            docker compose up -d backend
+            sudo docker load < bbl_backend.tar
+            sudo docker compose up -d backend
