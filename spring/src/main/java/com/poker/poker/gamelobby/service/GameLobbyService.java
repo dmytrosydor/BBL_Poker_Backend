@@ -57,7 +57,7 @@ public class GameLobbyService {
         eventPublisher.publishEvent(new PlayerJoinEvent(this, gameLobby.getId(), player.getId()));
     }
 
-    public PlayerJoinResponse joinLobby(UUID lobbyId, String playerName) {
+    public PlayerJoinResponse joinLobby(UUID lobbyId, String playerName, int avatar) {
         GameLobby gl = null;
 
         for (GameLobby gameLobby : lobbyList) {
@@ -66,7 +66,7 @@ public class GameLobbyService {
             }
         }
 
-        Player p = new Player(playerName);
+        Player p = new Player(playerName, avatar);
 
         gl.addPlayer(p);
 
@@ -95,5 +95,61 @@ public class GameLobbyService {
         }
 
         return response;
+    }
+
+    public void leaveLobby(UUID lobbyId, UUID playerId) {
+        GameLobby gl = null;
+
+        for (GameLobby gameLobby : lobbyList) {
+            if (gameLobby.getId().equals(lobbyId)) {
+                gl = gameLobby;
+            }
+        }
+
+        List<Player> playerList = gl.getPlayers();
+
+        Player p = null;
+
+        for (Player player : playerList) {
+            if (player.getId().equals(playerId)) {
+                p = player;
+            }
+        }
+
+        playerList.remove(p);
+
+        sendPlayerJoinEvent(gl, p);
+
+        if (gl.getPlayerCount() == 0) {
+            lobbyList.remove(gl);
+        }
+    }
+
+    public void restartLobby(UUID lobbyId) {
+        GameLobby gl = null;
+
+        for (GameLobby gameLobby : lobbyList) {
+            if (gameLobby.getId().equals(lobbyId)) {
+                gl = gameLobby;
+            }
+        }
+
+        int r = gl.incrementRestartCount();
+
+        GameLobby finalGl = gl;
+
+        if (r == gl.getPlayerCount()) {
+            CompletableFuture.runAsync(() -> {
+                {
+                    try {
+                        Thread.sleep(5000);
+                    } catch (InterruptedException e) {
+                        throw new RuntimeException(e);
+                    }
+
+                    sendGameStartEvent(finalGl);
+                }
+            });
+        }
     }
 }

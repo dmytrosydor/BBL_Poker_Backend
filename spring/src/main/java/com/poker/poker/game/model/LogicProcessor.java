@@ -34,6 +34,14 @@ public class LogicProcessor {
         return new WinnerInfo(win.size(), win);
     }
 
+    public static PlayerBestHand processPrivateCards(PlayerInGame playerInGame){
+        List<Card> cards = playerInGame.getHand();
+
+        Combination comb = (cards.get(0).getRank() == cards.get(1).getRank()) ? Combination.PAIR : Combination.HIGH_CARD;
+
+        return new PlayerBestHand(comb, playerInGame.getHand());
+    }
+
     public static PlayerBestHand processBestHand(PlayerInGame p, GameState gs){
         List<Card> cards = new ArrayList<>(gs.getCommunityCards());
 
