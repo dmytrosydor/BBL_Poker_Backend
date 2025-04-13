@@ -118,6 +118,8 @@ public class GameLobbyService {
 
         playerList.remove(p);
 
+        gl.decreasePlayerCount();
+
         sendPlayerJoinEvent(gl, p);
 
         if (gl.getPlayerCount() == 0) {

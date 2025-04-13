@@ -2,22 +2,20 @@
     FROM gradle:8.5-jdk17 AS build
     WORKDIR /app
     
-    # Copy Spring app
-    COPY spring /app
+    # Copy Gradle metadata first (for better layer caching)
+    COPY spring/build.gradle spring/settings.gradle /app/
+    RUN gradle --no-daemon clean build || true
     
-    # Build the JAR
+    # Now copy the full Spring Boot app
+    COPY spring /app
     RUN gradle build --no-daemon
     
     # -------- Runtime stage --------
     FROM eclipse-temurin:17-jdk
     WORKDIR /app
     
-    # Copy the built JAR (adjust the JAR name if needed)
+    # Copy the built JAR
     COPY --from=build /app/build/libs/poker-0.0.1-SNAPSHOT.jar app.jar
     
-    # Expose port 8080
     EXPOSE 8080
-    
-    # Run your Spring Boot application
     ENTRYPOINT ["java", "-jar", "app.jar"]
-    

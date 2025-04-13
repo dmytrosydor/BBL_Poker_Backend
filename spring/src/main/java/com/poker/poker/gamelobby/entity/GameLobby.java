@@ -68,5 +68,8 @@ public class GameLobby {
         restartCount++;
         return restartCount;
     }
-}
 
+    public void decreasePlayerCount() {
+        playerCount--;
+    }
+}
