@@ -1,9 +1,6 @@
 package com.poker.poker.WebSocket;
 
-import com.poker.poker.game.actions.Action;
-import com.poker.poker.game.actions.HoleCard;
-import com.poker.poker.game.actions.OrdinalPBS;
-import com.poker.poker.game.actions.PlayerJoin;
+import com.poker.poker.game.actions.*;
 import com.poker.poker.game.casino.Casino;
 import com.poker.poker.game.feedback.CallMessage;
 import com.poker.poker.game.feedback.GameMessage;
@@ -58,6 +55,8 @@ public class WebSocketService {
         GameState gameState = casino.addGame(gameLobby);
 
         List<Action> actionList = casino.getGameActions(gameState);
+
+        sendMessageToGame(gameLobby.getId(), new GameStart(gameLobby.getId()));
 
         processActionList(gameLobby.getId(), actionList);
     }

@@ -21,6 +21,7 @@ public class GameState {
     private WinnerInfo winnerInfo;
     private List<Action> actionList;
     private boolean allIn;
+    private int foldCount;
 
     public GameState(GameLobby gl) {
         this.id = gl.getId();
@@ -43,6 +44,7 @@ public class GameState {
         this.allIn = false;
         this.actionList = new ArrayList<>();
         this.phase = GamePhase.PREFLOP;
+        this.foldCount = 0;
 
         for (PlayerInGame player : this.players) {
             Card c = deck.drawCard(), cc = deck.drawCard();
@@ -55,6 +57,12 @@ public class GameState {
 
             actionList.add(hc);
             actionList.add(hcc);
+
+            PlayerBestHand playerBestHand = LogicProcessor.processPrivateCards(player);
+
+            OrdinalPBS ordinalPBS = new OrdinalPBS(playerBestHand, player.getPlayer().getId());
+
+            actionList.add(ordinalPBS);
         }
 
         actionList.add(new PlayerTurn(players.get(currentPlayer).getPlayer().getId(), 5));
@@ -143,6 +151,7 @@ public class GameState {
             case PREFLOP:
                 callCount = 0;
                 currentPlayer = 0;
+                foldCount = 0;
 
                 for (int i = 0; i < 3; i++){
                     Card c = deck.drawCard();
@@ -152,11 +161,11 @@ public class GameState {
                     actionList.add(new CommunityCard(c));
                 }
 
-                /*for (PlayerInGame player : players) {
+                for (PlayerInGame player : players) {
                     PlayerBestHand pbh = LogicProcessor.processBestHand(player, this);
 
                     actionList.add(new OrdinalPBS(pbh, player.getPlayer().getId()));
-                }*/
+                }
 
                 actionList.add(new PlayerTurn(players.get(currentPlayer).getPlayer().getId(), currentBet - (1000 - players.get(currentPlayer).getBalance())));
 
@@ -166,6 +175,7 @@ public class GameState {
             case FLOP:
                 callCount = 0;
                 currentPlayer = 0;
+                foldCount = 0;
 
                 Card c = deck.drawCard();
 
@@ -173,11 +183,11 @@ public class GameState {
 
                 actionList.add(new CommunityCard(c));
 
-                /*for (PlayerInGame player : players) {
+                for (PlayerInGame player : players) {
                     PlayerBestHand pbh = LogicProcessor.processBestHand(player, this);
 
                     actionList.add(new OrdinalPBS(pbh, player.getPlayer().getId()));
-                }*/
+                }
 
                 actionList.add(new PlayerTurn(players.get(currentPlayer).getPlayer().getId(), currentBet - (1000 - players.get(currentPlayer).getBalance())));
 
@@ -187,6 +197,7 @@ public class GameState {
             case TURN:
                 callCount = 0;
                 currentPlayer = 0;
+                foldCount = 0;
 
                 Card cc = deck.drawCard();
 
@@ -194,11 +205,11 @@ public class GameState {
 
                 actionList.add(new CommunityCard(cc));
 
-                /*for (PlayerInGame player : players) {
+                for (PlayerInGame player : players) {
                     PlayerBestHand pbh = LogicProcessor.processBestHand(player, this);
 
                     actionList.add(new OrdinalPBS(pbh, player.getPlayer().getId()));
-                }*/
+                }
 
                 actionList.add(new PlayerTurn(players.get(currentPlayer).getPlayer().getId(), currentBet - (1000 - players.get(currentPlayer).getBalance())));
 
@@ -284,13 +295,11 @@ public class GameState {
 
         actionList.add(new PlayerFold(message.getPlayerId()));
 
-        callCount++;
+        if (players.size() == 1) phase = GamePhase.RIVER;
 
         if (callCount == players.size()) advancePhase();
 
         else {
-            advanceCurrentPlayer();
-
             actionList.add(new PlayerTurn(players.get(currentPlayer).getPlayer().getId(), currentBet - (1000 - players.get(currentPlayer).getBalance())));
 
         }

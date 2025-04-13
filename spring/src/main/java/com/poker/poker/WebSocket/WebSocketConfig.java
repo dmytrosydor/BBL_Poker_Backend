@@ -21,7 +21,7 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
         registry.addEndpoint("/ws")
                 .setAllowedOrigins("http://13.37.225.112", "http://localhost:5173");
 
-        registry.addEndpoint("/chat").setAllowedOrigins("http://13.37.225.112").withSockJS();
+        registry.addEndpoint("/chat").setAllowedOrigins("http://13.37.225.112", "http://localhost:5173").withSockJS();
 
         registry.addEndpoint("/games/{gameId}").setAllowedOrigins("http://13.37.225.112", "http://localhost:5173");
         registry.addEndpoint("/players/{playerId}").setAllowedOrigins("http://13.37.225.112", "http://localhost:5173");

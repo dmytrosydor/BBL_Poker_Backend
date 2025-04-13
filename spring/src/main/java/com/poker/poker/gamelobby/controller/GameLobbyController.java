@@ -41,7 +41,17 @@ public class GameLobbyController {
 
     @PostMapping("/join/{lobbyId}")
     public ResponseEntity<PlayerJoinResponse> joinLobby(@PathVariable UUID lobbyId, @RequestBody PlayerJoinRequest request) {
-        PlayerJoinResponse updatedLobby = service.joinLobby(lobbyId, request.getPlayerName());
+        PlayerJoinResponse updatedLobby = service.joinLobby(lobbyId, request.getPlayerName(), request.getPlayerAvatar());
         return ResponseEntity.ok(updatedLobby);
+    }
+
+    @PostMapping("restart/{lobbyId}")
+    public void restartLobby(@PathVariable UUID lobbyId) {
+        service.restartLobby(lobbyId);
+    }
+
+    @PostMapping("leave/{lobbyId}/{playerId}")
+    public void leaveLobby(@PathVariable UUID lobbyId, @PathVariable UUID playerId) {
+        service.leaveLobby(lobbyId, playerId);
     }
 }

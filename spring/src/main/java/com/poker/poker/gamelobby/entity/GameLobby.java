@@ -11,6 +11,7 @@ public class GameLobby {
     private String lobbyName;
     private int playerCount;
     private int playerRequirement;
+    private int restartCount;
     private List<Player> players;
     private boolean gameInProgress;
 
@@ -19,6 +20,7 @@ public class GameLobby {
         this.lobbyName = lobbyName;
         this.playerCount = 0;
         this.playerRequirement = playerRequirement;
+        this.restartCount = 0;
         this.players = new ArrayList<>();
         this.gameInProgress = false;
     }
@@ -56,6 +58,15 @@ public class GameLobby {
 
     public boolean isGameInProgress() {
         return gameInProgress;
+    }
+
+    public int getRestartCount() {
+        return restartCount;
+    }
+
+    public int incrementRestartCount() {
+        restartCount++;
+        return restartCount;
     }
 }
 
