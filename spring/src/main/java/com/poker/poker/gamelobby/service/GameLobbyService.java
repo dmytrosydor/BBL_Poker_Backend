@@ -8,6 +8,7 @@ import com.poker.poker.gamelobby.entity.GameLobby;        // For the entity
 
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
 import java.util.ArrayList;
 import java.util.List;

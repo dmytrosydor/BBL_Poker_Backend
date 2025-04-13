@@ -54,6 +54,6 @@ jobs:
           username: ${{ env.EC2_USER }}
           key: ${{ env.EC2_KEY }}
           script: |
-            cd $PROJECT_DIR
+            cd /home/ubuntu/bblpoker
             sudo docker load < bbl_backend.tar
             sudo docker compose up -d backend
