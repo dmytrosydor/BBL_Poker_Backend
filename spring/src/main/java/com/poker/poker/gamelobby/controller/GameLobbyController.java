@@ -11,7 +11,7 @@ import com.poker.poker.gamelobby.service.GameLobbyService;
 import com.poker.poker.gamelobby.dto.CreateLobbyRequest;
 import com.poker.poker.gamelobby.entity.GameLobby;
 
-@CrossOrigin(origins = "http://localhost:5173")
+@CrossOrigin(origins = "https://bblpoker.win")
 @RestController
 @RequestMapping("/api/games")
 public class GameLobbyController {
