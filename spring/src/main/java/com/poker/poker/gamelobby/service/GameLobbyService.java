@@ -85,7 +85,7 @@ public class GameLobbyService {
             CompletableFuture.runAsync(() -> {
                 {
                     try {
-                        Thread.sleep(5000);
+                        Thread.sleep(4000);
                     } catch (InterruptedException e) {
                         throw new RuntimeException(e);
                     }
@@ -121,6 +121,8 @@ public class GameLobbyService {
 
         sendPlayerJoinEvent(gl, p);
 
+        gl.decrementPlayerCount();
+
         if (gl.getPlayerCount() == 0) {
             lobbyList.remove(gl);
         }
@@ -143,7 +145,7 @@ public class GameLobbyService {
             CompletableFuture.runAsync(() -> {
                 {
                     try {
-                        Thread.sleep(5000);
+                        Thread.sleep(4000);
                     } catch (InterruptedException e) {
                         throw new RuntimeException(e);
                     }

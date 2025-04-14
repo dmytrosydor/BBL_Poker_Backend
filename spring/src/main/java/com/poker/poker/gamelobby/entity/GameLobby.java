@@ -64,9 +64,17 @@ public class GameLobby {
         return restartCount;
     }
 
+    public void resetRestart() {
+        this.restartCount = 0;
+    }
+
     public int incrementRestartCount() {
         restartCount++;
         return restartCount;
+    }
+
+    public void decrementPlayerCount() {
+        playerCount--;
     }
 }
 

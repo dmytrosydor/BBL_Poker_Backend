@@ -19,11 +19,11 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
     @Override
     public void registerStompEndpoints(StompEndpointRegistry registry) {
         registry.addEndpoint("/ws")
-                .setAllowedOrigins("https://bblpoker.win");
+                .setAllowedOrigins("https://bblpoker.win", "http://localhost:5173");
 
-        registry.addEndpoint("/chat").setAllowedOrigins("https://bblpoker.win").withSockJS();
+        registry.addEndpoint("/api/chat").setAllowedOrigins("https://bblpoker.win", "http://localhost:5173").withSockJS();
 
-        registry.addEndpoint("/games/{gameId}").setAllowedOrigins("https://bblpoker.win");
-        registry.addEndpoint("/players/{playerId}").setAllowedOrigins("https://bblpoker.win");
+        registry.addEndpoint("/games/{gameId}").setAllowedOrigins("https://bblpoker.win", "http://localhost:5173");
+        registry.addEndpoint("/players/{playerId}").setAllowedOrigins("https://bblpoker.win", "http://localhost:5173");
     }
 }

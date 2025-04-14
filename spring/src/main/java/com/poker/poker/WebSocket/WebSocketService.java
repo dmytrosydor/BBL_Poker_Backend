@@ -52,6 +52,8 @@ public class WebSocketService {
     public void gameStarted(GameStartEvent event) {
         GameLobby gameLobby = event.getGameLobby();
 
+        gameLobby.resetRestart();
+
         GameState gameState = casino.addGame(gameLobby);
 
         List<Action> actionList = casino.getGameActions(gameState);
