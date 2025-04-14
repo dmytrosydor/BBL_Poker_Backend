@@ -21,6 +21,12 @@ public class Casino {
     public GameState addGame(GameLobby gameLobby){
         GameState gameState = new GameState(gameLobby);
 
+        UUID uuid = gameLobby.getId();
+
+        GameState state = getGameById(uuid);
+
+        if (state != null){gameList.remove(state);}
+
         this.gameList.add(gameState);
 
         return gameState;
@@ -31,7 +37,7 @@ public class Casino {
             if (gameId.equals(gameState.getId())) return gameState;
         }
 
-        return gameList.get(0);
+        return null;
     }
 
     public List<Action> getGameActions(GameState gameState){

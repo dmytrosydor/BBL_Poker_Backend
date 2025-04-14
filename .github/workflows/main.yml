@@ -1,0 +1,59 @@
+name: Deploy Backend to EC2
+
+on:
+  push:
+    branches:
+      - production
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    env:
+      EC2_HOST: ${{ secrets.EC2_HOST }}
+      EC2_USER: ${{ secrets.EC2_USER }}
+      EC2_KEY: ${{ secrets.EC2_KEY }}
+      PROJECT_DIR: /home/ubuntu/bblpoker
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+
+      - name: Grant execute permission to Gradle
+        run: chmod +x spring/gradlew || true
+
+      - name: Build with Gradle (Spring app)
+        run: ./gradlew build -x test
+        working-directory: ./spring
+
+      - name: Build Docker image
+        run: docker build -t bbl_backend .
+
+      - name: Save Docker image to tar
+        run: docker save bbl_backend > bbl_backend.tar
+
+      - name: Upload Docker image to EC2
+        uses: appleboy/scp-action@v0.1.7
+        with:
+          host: ${{ env.EC2_HOST }}
+          username: ${{ env.EC2_USER }}
+          key: ${{ env.EC2_KEY }}
+          source: "bbl_backend.tar"
+          target: ${{ env.PROJECT_DIR }}
+
+      - name: Load image and restart backend on EC2
+        uses: appleboy/ssh-action@v0.1.10
+        with:
+          host: ${{ env.EC2_HOST }}
+          username: ${{ env.EC2_USER }}
+          key: ${{ env.EC2_KEY }}
+          script: |
+            cd /home/ubuntu/bblpoker
+            sudo docker load < bbl_backend.tar
+            sudo docker compose up -d backend

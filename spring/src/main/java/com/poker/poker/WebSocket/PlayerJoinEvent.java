@@ -22,4 +22,5 @@ public class PlayerJoinEvent extends ApplicationEvent {
     public UUID getPlayerId() {
         return playerId;
     }
+
 }
